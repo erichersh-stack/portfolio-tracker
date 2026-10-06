@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<title>My Portfolio</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:#111827;background:#f3f4f6}
+*{box-sizing:border-box}body{margin:0}.wrap{max-width:1100px;margin:auto;padding:18px 16px 40px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+h1{font-size:30px;margin:0}.sub{color:#6b7280;margin-top:3px}
+button{border:0;border-radius:14px;padding:11px 15px;font-weight:700;cursor:pointer;background:#111827;color:white}
+button.secondary{background:white;color:#111827;border:1px solid #d1d5db}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card{background:white;border-radius:20px;padding:18px;box-shadow:0 2px 10px #0000000a}
+.label{font-size:13px;color:#6b7280}.big{font-size:29px;font-weight:800;margin-top:5px}
+.positive{color:#14804a}.negative{color:#c0392b}
+.section{margin-top:20px}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.sectionhead h2{font-size:20px;margin:0}
+.controls{display:flex;gap:8px;flex-wrap:wrap}.empty{padding:25px;text-align:center;color:#6b7280}
+.holdings{display:grid;gap:10px}
+.row{background:white;border-radius:18px;padding:15px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
+.ticker{font-size:18px;font-weight:800}.name{font-size:13px;color:#6b7280}.value{font-size:18px;font-weight:800;text-align:right}
+.meta{text-align:right;color:#6b7280;font-size:12px;margin-top:3px}
+.badge{display:inline-block;background:#eef2ff;border-radius:10px;padding:3px 7px;font-size:11px;margin-left:5px}
+.chart{display:flex;gap:10px;align-items:flex-end;height:170px;padding:15px 5px 5px}
+.bar{flex:1;min-width:18px;border-radius:9px 9px 3px 3px;background:#111827;position:relative}
+.bar span{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:11px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+input,select{width:100%;padding:13px;border:1px solid #d1d5db;border-radius:12px;font-size:16px;background:white}
+.full{grid-column:1/-1}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:5}
+.modal.show{display:flex}.sheet{background:#fff;border-radius:24px;padding:20px;width:min(560px,100%);max-height:90vh;overflow:auto}
+.note{font-size:12px;color:#6b7280;line-height:1.45}.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:15px}
+footer{margin-top:25px;color:#9ca3af;font-size:12px;text-align:center}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.form{grid-template-columns:1fr}.full{grid-column:auto}header{align-items:flex-start}.row{grid-template-columns:1fr auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div><h1>My Portfolio</h1><div class="sub">Stocks, accounts & future RSUs</div></div>
+  <button onclick="openAdd()">＋ Add Holding</button>
+</header>
+
+<div class="grid">
+  <div class="card"><div class="label">Current Portfolio</div><div class="big" id="total">$0.00</div></div>
+  <div class="card"><div class="label">Today's Change</div><div class="big" id="dayChange">$0.00</div></div>
+  <div class="card"><div class="label">Potential + RSUs</div><div class="big" id="potential">$0.00</div></div>
+</div>
+
+<div class="section">
+  <div class="sectionhead"><h2>Holdings</h2><div class="controls"><button class="secondary" onclick="refreshAll()">↻ Refresh Prices</button></div></div>
+  <div id="holdings" class="holdings"></div>
+</div>
+
+<div class="section">
+  <div class="sectionhead"><h2>Allocation</h2></div>
+  <div class="card"><div id="chart" class="chart"></div></div>
+</div>
+
+<div class="section">
+  <div class="sectionhead"><h2>RSUs / Future Value</h2><button class="secondary" onclick="openRSU()">＋ Add RSU</button></div>
+  <div id="rsus" class="holdings"></div>
+</div>
+
+<div class="section">
+  <div class="sectionhead"><h2>Accounts</h2></div>
+  <div id="accounts" class="card"></div>
+</div>
+
+<footer id="updated">Prices not yet refreshed.</footer>
+</div>
+
+<div id="modal" class="modal">
+ <div class="sheet">
+  <h2 id="modalTitle">Add Holding</h2>
+  <div class="form">
+   <div><label>Ticker</label><input id="ticker" placeholder="AAPL"></div>
+   <div><label>Shares</label><input id="shares" type="number" step="0.0001" placeholder="10"></div>
+   <div><label>Cost basis / share</label><input id="cost" type="number" step="0.01" placeholder="150"></div>
+   <div><label>Account</label><select id="account"><option>E*TRADE</option><option>Robinhood</option><option>Fidelity</option><option>Equitable</option><option>Other</option></select></div>
+  </div>
+  <p class="note">The app saves your holdings on this device. Market prices are retrieved by the server so your API key is not exposed in the browser.</p>
+  <div class="actions"><button class="secondary" onclick="closeModal()">Cancel</button><button onclick="saveHolding()">Save Holding</button></div>
+ </div>
+</div>
+
+<div id="rsuModal" class="modal">
+ <div class="sheet">
+  <h2>Add RSU</h2>
+  <div class="form">
+   <div><label>Ticker</label><input id="rsuTicker" placeholder="TSLA"></div>
+   <div><label>Unvested shares</label><input id="rsuShares" type="number" step="0.0001"></div>
+   <div class="full"><label>Vesting date</label><input id="vestDate" type="date"></div>
+  </div>
+  <div class="actions"><button class="secondary" onclick="closeRSU()">Cancel</button><button onclick="saveRSU()">Save RSU</button></div>
+ </div>
+</div>
+
+<script>
+const KEY="portfolio-tracker-v1";
+let data=JSON.parse(localStorage.getItem(KEY)||'{"holdings":[],"rsus":[]}');
+let quotes={};
+
+function money(n){return Number(n||0).toLocaleString("en-US",{style:"currency",currency:"USD"});}
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render();}
+function render(){
+ const holdings=data.holdings;
+ let total=0, day=0;
+ holdings.forEach(h=>{const q=quotes[h.ticker]; h.price=q?.price||h.price||0; h.previousClose=q?.previousClose||h.previousClose||h.price; total+=h.shares*h.price; day+=(h.price-h.previousClose)*h.shares;});
+ const rsuTotal=data.rsus.reduce((s,r)=>s+(r.shares*(quotes[r.ticker]?.price||0)),0);
+ document.getElementById("total").textContent=money(total);
+ const dc=document.getElementById("dayChange"); dc.textContent=money(day); dc.className="big "+(day>=0?"positive":"negative");
+ document.getElementById("potential").textContent=money(total+rsuTotal);
+ const box=document.getElementById("holdings");
+ box.innerHTML=holdings.length?holdings.map((h,i)=>{
+   const v=h.shares*(quotes[h.ticker]?.price||h.price||0), cb=h.shares*h.cost, gl=v-cb;
+   return `<div class="row"><div><div class="ticker">${h.ticker}<span class="badge">${h.account}</span></div><div class="name">${h.shares} shares · cost ${money(cb)}</div></div><div><div class="value">${money(v)}</div><div class="meta ${gl>=0?"positive":"negative"}">${money(gl)} total G/L</div><div class="meta"><button class="secondary" onclick="removeHolding(${i})">Remove</button></div></div></div>`;
+ }).join(""):`<div class="card empty">Add your first stock holding.</div>`;
+ renderChart();
+ renderRSUs();
+ renderAccounts();
+}
+function renderChart(){
+ const sums={}; data.holdings.forEach(h=>sums[h.ticker]=(sums[h.ticker]||0)*(1)+h.shares*(quotes[h.ticker]?.price||h.price||0));
+ const vals=Object.values(sums), max=Math.max(...vals,1), c=document.getElementById("chart");
+ c.innerHTML=Object.entries(sums).map(([t,v])=>`<div class="bar" style="height:${Math.max(8,v/max*140)}px"><span>${t}</span></div>`).join("")||`<div class="empty">Your allocation chart will appear here.</div>`;
+}
+function renderRSUs(){
+ const r=document.getElementById("rsus");
+ r.innerHTML=data.rsus.length?data.rsus.map((x,i)=>`<div class="row"><div><div class="ticker">${x.ticker}</div><div class="name">${x.shares} unvested shares · vest ${x.date||"—"}</div></div><div><div class="value">${money(x.shares*(quotes[x.ticker]?.price||0))}</div><div class="meta"><button class="secondary" onclick="data.rsus.splice(${i},1);save()">Remove</button></div></div></div>`).join(""):`<div class="card empty">Add unvested RSUs to see potential future value.</div>`;
+}
+function renderAccounts(){
+ const sums={}; data.holdings.forEach(h=>sums[h.account]=(sums[h.account]||0)+h.shares*(quotes[h.ticker]?.price||h.price||0));
+ document.getElementById("accounts").innerHTML=Object.entries(sums).map(([a,v])=>`<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #eee"><b>${a}</b><b>${money(v)}</b></div>`).join("")||"No accounts yet.";
+}
+function openAdd(){document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function saveHolding(){
+ const ticker=document.getElementById("ticker").value.trim().toUpperCase(), shares=+document.getElementById("shares").value, cost=+document.getElementById("cost").value, account=document.getElementById("account").value;
+ if(!ticker||!shares) return alert("Enter a ticker and number of shares.");
+ data.holdings.push({ticker,shares,cost:cost||0,account}); closeModal(); save(); refreshOne(ticker);
+}
+function removeHolding(i){if(confirm("Remove this holding?")){data.holdings.splice(i,1);save()}}
+async function refreshOne(ticker){
+ try{const r=await fetch("/api/quote?symbol="+encodeURIComponent(ticker)); const q=await r.json(); if(q.error) throw Error(q.error); quotes[ticker]=q; render(); document.getElementById("updated").textContent="Updated "+new Date().toLocaleString();}
+ catch(e){alert("Could not get "+ticker+" price: "+e.message)}
+}
+async function refreshAll(){
+ const symbols=[...new Set([...data.holdings.map(h=>h.ticker),...data.rsus.map(r=>r.ticker)])];
+ if(!symbols.length)return;
+ document.getElementById("updated").textContent="Refreshing prices…";
+ await Promise.all(symbols.map(refreshOne));
+ document.getElementById("updated").textContent="Updated "+new Date().toLocaleString();
+}
+function openRSU(){document.getElementById("rsuModal").classList.add("show")}
+function closeRSU(){document.getElementById("rsuModal").classList.remove("show")}
+function saveRSU(){
+ const ticker=document.getElementById("rsuTicker").value.trim().toUpperCase(), shares=+document.getElementById("rsuShares").value, date=document.getElementById("vestDate").value;
+ if(!ticker||!shares)return alert("Enter a ticker and number of shares.");
+ data.rsus.push({ticker,shares,date});closeRSU();save();refreshOne(ticker);
+}
+render();
+</script>
+</body>
+</html>
