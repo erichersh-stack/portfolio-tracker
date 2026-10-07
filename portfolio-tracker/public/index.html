@@ -8,159 +8,92 @@
 <style>
 :root{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:#111827;background:#f3f4f6}
 *{box-sizing:border-box}body{margin:0}.wrap{max-width:1100px;margin:auto;padding:18px 16px 40px}
-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
-h1{font-size:30px;margin:0}.sub{color:#6b7280;margin-top:3px}
-button{border:0;border-radius:14px;padding:11px 15px;font-weight:700;cursor:pointer;background:#111827;color:white}
-button.secondary{background:white;color:#111827;border:1px solid #d1d5db}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.card{background:white;border-radius:20px;padding:18px;box-shadow:0 2px 10px #0000000a}
-.label{font-size:13px;color:#6b7280}.big{font-size:29px;font-weight:800;margin-top:5px}
-.positive{color:#14804a}.negative{color:#c0392b}
-.section{margin-top:20px}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.sectionhead h2{font-size:20px;margin:0}
-.controls{display:flex;gap:8px;flex-wrap:wrap}.empty{padding:25px;text-align:center;color:#6b7280}
-.holdings{display:grid;gap:10px}
-.row{background:white;border-radius:18px;padding:15px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
-.ticker{font-size:18px;font-weight:800}.name{font-size:13px;color:#6b7280}.value{font-size:18px;font-weight:800;text-align:right}
-.meta{text-align:right;color:#6b7280;font-size:12px;margin-top:3px}
-.badge{display:inline-block;background:#eef2ff;border-radius:10px;padding:3px 7px;font-size:11px;margin-left:5px}
-.chart{display:flex;gap:10px;align-items:flex-end;height:170px;padding:15px 5px 5px}
-.bar{flex:1;min-width:18px;border-radius:9px 9px 3px 3px;background:#111827;position:relative}
-.bar span{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:11px}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-input,select{width:100%;padding:13px;border:1px solid #d1d5db;border-radius:12px;font-size:16px;background:white}
-.full{grid-column:1/-1}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:5}
-.modal.show{display:flex}.sheet{background:#fff;border-radius:24px;padding:20px;width:min(560px,100%);max-height:90vh;overflow:auto}
-.note{font-size:12px;color:#6b7280;line-height:1.45}.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:15px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}h1{font-size:30px;margin:0}.sub{color:#6b7280;margin-top:3px}
+button{border:0;border-radius:14px;padding:11px 15px;font-weight:700;cursor:pointer;background:#111827;color:white}button.secondary{background:white;color:#111827;border:1px solid #d1d5db}button.danger{color:#c0392b;border-color:#f0b7b1;background:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{background:white;border-radius:20px;padding:18px;box-shadow:0 2px 10px #0000000a}.label{font-size:13px;color:#6b7280}.big{font-size:29px;font-weight:800;margin-top:5px}.positive{color:#14804a}.negative{color:#c0392b}
+.section{margin-top:20px}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.sectionhead h2{font-size:20px;margin:0}.controls{display:flex;gap:8px;flex-wrap:wrap}.empty{padding:25px;text-align:center;color:#6b7280}
+.holdings{display:grid;gap:10px}.row{background:white;border-radius:18px;padding:15px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;position:relative;overflow:hidden;transition:transform .18s ease}.swipe-content{display:contents}.swipe-delete{display:none;position:absolute;right:0;top:0;bottom:0;width:92px;background:#c0392b;color:#fff;border-radius:0;align-items:center;justify-content:center}.row.swiping .swipe-delete{display:flex}.ticker{font-size:18px;font-weight:800}.name{font-size:13px;color:#6b7280}.value{font-size:18px;font-weight:800;text-align:right}.meta{text-align:right;color:#6b7280;font-size:12px;margin-top:3px}.badge{display:inline-block;background:#eef2ff;border-radius:10px;padding:3px 7px;font-size:11px;margin-left:5px}.holding-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.chart-card{display:grid;grid-template-columns:230px 1fr;gap:20px;align-items:center}.donut{width:210px;height:210px;border-radius:50%;position:relative;margin:auto;background:#e5e7eb}.donut:after{content:"";position:absolute;inset:48px;background:white;border-radius:50%}.donut-total{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1;text-align:center;font-weight:800;font-size:17px;flex-direction:column}.legend{display:grid;gap:9px}.legend-row{display:flex;align-items:center;justify-content:space-between;gap:10px}.legend-name{display:flex;align-items:center;min-width:0}.legend-name span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.legend-value{font-weight:700}.swipe-hint{font-size:11px;color:#9ca3af;margin-top:5px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}input,select{width:100%;padding:13px;border:1px solid #d1d5db;border-radius:12px;font-size:16px;background:white}.full{grid-column:1/-1}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:5}.modal.show{display:flex}.sheet{background:#fff;border-radius:24px;padding:20px;width:min(560px,100%);max-height:90vh;overflow:auto}.note{font-size:12px;color:#6b7280;line-height:1.45}.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:15px}.tax-box{background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;padding:12px;margin-top:10px}.tax-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px}.tax-grid b{text-align:right}
 footer{margin-top:25px;color:#9ca3af;font-size:12px;text-align:center}
-@media(max-width:700px){.grid{grid-template-columns:1fr}.form{grid-template-columns:1fr}.full{grid-column:auto}header{align-items:flex-start}.row{grid-template-columns:1fr auto}}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.form{grid-template-columns:1fr}.full{grid-column:auto}header{align-items:flex-start}.row{grid-template-columns:1fr auto}.chart-card{grid-template-columns:1fr}.donut{width:190px;height:190px}.donut:after{inset:43px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header>
-  <div><h1>My Portfolio</h1><div class="sub">Stocks, accounts & future RSUs</div></div>
-  <button onclick="openAdd()">＋ Add Holding</button>
-</header>
-
+<header><div><h1>My Portfolio</h1><div class="sub">Stocks, accounts & future RSUs</div></div><button onclick="openAdd()">＋ Add Holding</button></header>
 <div class="grid">
   <div class="card"><div class="label">Current Portfolio</div><div class="big" id="total">$0.00</div></div>
   <div class="card"><div class="label">Today's Change</div><div class="big" id="dayChange">$0.00</div></div>
   <div class="card"><div class="label">Potential + RSUs</div><div class="big" id="potential">$0.00</div></div>
 </div>
-
-<div class="section">
-  <div class="sectionhead"><h2>Holdings</h2><div class="controls"><button class="secondary" onclick="refreshAll()">↻ Refresh Prices</button></div></div>
-  <div id="holdings" class="holdings"></div>
-</div>
-
-<div class="section">
-  <div class="sectionhead"><h2>Allocation</h2></div>
-  <div class="card"><div id="chart" class="chart"></div></div>
-</div>
-
-<div class="section">
-  <div class="sectionhead"><h2>RSUs / Future Value</h2><button class="secondary" onclick="openRSU()">＋ Add RSU</button></div>
-  <div id="rsus" class="holdings"></div>
-</div>
-
-<div class="section">
-  <div class="sectionhead"><h2>Accounts</h2></div>
-  <div id="accounts" class="card"></div>
-</div>
-
+<div class="section"><div class="sectionhead"><h2>Holdings</h2><div class="controls"><button class="secondary" onclick="refreshAll()">↻ Refresh Prices</button></div></div><div id="holdings" class="holdings"></div></div>
+<div class="section"><div class="sectionhead"><h2>Allocation</h2></div><div class="card chart-card"><div id="donut" class="donut"><div class="donut-total"><span id="donutTotal">$0</span><span class="label">Portfolio</span></div></div><div id="legend" class="legend"></div></div></div>
+<div class="section"><div class="sectionhead"><div><h2>RSUs / Future Value</h2><div class="note">Each row represents a vest. Tax withholding is estimated from the rate you enter.</div></div><button class="secondary" onclick="openRSU()">＋ Add RSU</button></div><div id="rsus" class="holdings"></div></div>
+<div class="section"><div class="sectionhead"><h2>Accounts</h2></div><div id="accounts" class="card"></div></div>
 <footer id="updated">Prices not yet refreshed.</footer>
 </div>
 
-<div id="modal" class="modal">
- <div class="sheet">
-  <h2 id="modalTitle">Add Holding</h2>
-  <div class="form">
-   <div><label>Ticker</label><input id="ticker" placeholder="AAPL"></div>
-   <div><label>Shares</label><input id="shares" type="number" step="0.0001" placeholder="10"></div>
-   <div><label>Cost basis / share</label><input id="cost" type="number" step="0.01" placeholder="150"></div>
-   <div><label>Account</label><select id="account"><option>E*TRADE</option><option>Robinhood</option><option>Fidelity</option><option>Equitable</option><option>Other</option></select></div>
-  </div>
-  <p class="note">The app saves your holdings on this device. Market prices are retrieved by the server so your API key is not exposed in the browser.</p>
-  <div class="actions"><button class="secondary" onclick="closeModal()">Cancel</button><button onclick="saveHolding()">Save Holding</button></div>
- </div>
-</div>
+<div id="modal" class="modal"><div class="sheet"><h2 id="modalTitle">Add Holding</h2><div class="form">
+<div><label>Ticker</label><input id="ticker" placeholder="AAPL"></div><div><label>Shares</label><input id="shares" type="number" step="0.0001" placeholder="10"></div>
+<div><label>Cost basis / share</label><input id="cost" type="number" step="0.01" placeholder="150"></div><div><label>Account</label><select id="account"><option>E*TRADE</option><option>Robinhood</option><option>Fidelity</option><option>Equitable</option><option>Other</option></select></div>
+</div><p class="note">Market prices and the previous trading day's close are retrieved by the server. Your API key stays on the server.</p><div class="actions"><button class="secondary" onclick="closeModal()">Cancel</button><button onclick="saveHolding()">Save Holding</button></div></div></div>
 
-<div id="rsuModal" class="modal">
- <div class="sheet">
-  <h2>Add RSU</h2>
-  <div class="form">
-   <div><label>Ticker</label><input id="rsuTicker" placeholder="TSLA"></div>
-   <div><label>Unvested shares</label><input id="rsuShares" type="number" step="0.0001"></div>
-   <div class="full"><label>Vesting date</label><input id="vestDate" type="date"></div>
-  </div>
-  <div class="actions"><button class="secondary" onclick="closeRSU()">Cancel</button><button onclick="saveRSU()">Save RSU</button></div>
- </div>
-</div>
+<div id="rsuModal" class="modal"><div class="sheet"><h2>Add RSU Vest</h2><div class="form">
+<div><label>Ticker</label><input id="rsuTicker" placeholder="TSLA"></div><div><label>Shares vesting</label><input id="rsuShares" type="number" step="0.0001"></div>
+<div><label>Vesting date</label><input id="vestDate" type="date"></div><div><label>Tax withholding rate</label><input id="taxRate" type="number" step="0.1" min="0" max="100" value="30"></div>
+<div class="full"><label>Account after vesting</label><select id="rsuAccount"><option>E*TRADE</option><option>Robinhood</option><option>Fidelity</option><option>Equitable</option><option>Other</option></select></div>
+</div><div id="rsuTaxPreview" class="tax-box note">Enter shares and a current price will be used after the RSU is saved.</div><div class="actions"><button class="secondary" onclick="closeRSU()">Cancel</button><button onclick="saveRSU()">Save RSU</button></div></div></div>
 
 <script>
-const KEY="portfolio-tracker-v1";
-let data=JSON.parse(localStorage.getItem(KEY)||'{"holdings":[],"rsus":[]}');
-let quotes={};
-
+const KEY="portfolio-tracker-v2";
+const OLD_KEY="portfolio-tracker-v1";
+const COLORS=["#2563eb","#16a34a","#dc2626","#9333ea","#ea580c","#0891b2","#ca8a04","#db2777","#4f46e5","#65a30d","#0f766e","#be123c"];
+let data=JSON.parse(localStorage.getItem(KEY)||'null');
+if(!data){data=JSON.parse(localStorage.getItem(OLD_KEY)||'{"holdings":[],"rsus":[]}');data.holdings=(data.holdings||[]).map(h=>({...h,color:h.color||null}));data.rsus=(data.rsus||[]).map(r=>({...r,taxRate:r.taxRate??30,account:r.account||"E*TRADE"}));}
+let quotes={};let editingIndex=null;let editingRSUIndex=null;let touchStartX=0;let touchIndex=null;
 function money(n){return Number(n||0).toLocaleString("en-US",{style:"currency",currency:"USD"});}
+function pct(n){return (Number(n||0)).toFixed(2)+"%";}
+function colorFor(ticker){let existing=data.holdings.find(h=>h.ticker===ticker&&h.color);if(existing)return existing.color;let used=data.holdings.map(h=>h.color).filter(Boolean);let c=COLORS.find(x=>!used.includes(x))||COLORS[Math.floor(Math.random()*COLORS.length)];return c;}
 function save(){localStorage.setItem(KEY,JSON.stringify(data));render();}
+function quoteFor(t){return quotes[t]||{};}
 function render(){
- const holdings=data.holdings;
- let total=0, day=0;
- holdings.forEach(h=>{const q=quotes[h.ticker]; h.price=q?.price||h.price||0; h.previousClose=q?.previousClose||h.previousClose||h.price; total+=h.shares*h.price; day+=(h.price-h.previousClose)*h.shares;});
- const rsuTotal=data.rsus.reduce((s,r)=>s+(r.shares*(quotes[r.ticker]?.price||0)),0);
- document.getElementById("total").textContent=money(total);
- const dc=document.getElementById("dayChange"); dc.textContent=money(day); dc.className="big "+(day>=0?"positive":"negative");
- document.getElementById("potential").textContent=money(total+rsuTotal);
+ const holdings=data.holdings;let total=0,day=0;
+ holdings.forEach(h=>{const q=quoteFor(h.ticker);h.price=q.price??h.price??0;h.previousClose=q.previousClose??h.previousClose??h.price??0;const price=Number(h.price)||0;const prev=Number(h.previousClose)||0;total+=h.shares*price;day+=(price-prev)*h.shares;if(!h.color)h.color=colorFor(h.ticker);});
+ const rsuTotal=data.rsus.reduce((s,r)=>s+(r.shares*(quoteFor(r.ticker).price||0)),0);
+ document.getElementById("total").textContent=money(total);const dc=document.getElementById("dayChange");dc.textContent=money(day);dc.className="big "+(day>=0?"positive":"negative");document.getElementById("potential").textContent=money(total+rsuTotal);
  const box=document.getElementById("holdings");
- box.innerHTML=holdings.length?holdings.map((h,i)=>{
-   const v=h.shares*(quotes[h.ticker]?.price||h.price||0), cb=h.shares*h.cost, gl=v-cb;
-   return `<div class="row"><div><div class="ticker">${h.ticker}<span class="badge">${h.account}</span></div><div class="name">${h.shares} shares · cost ${money(cb)}</div></div><div><div class="value">${money(v)}</div><div class="meta ${gl>=0?"positive":"negative"}">${money(gl)} total G/L</div><div class="meta"><button class="secondary" onclick="removeHolding(${i})">Remove</button></div></div></div>`;
- }).join(""):`<div class="card empty">Add your first stock holding.</div>`;
- renderChart();
- renderRSUs();
- renderAccounts();
+ box.innerHTML=holdings.length?holdings.map((h,i)=>{const q=quoteFor(h.ticker),price=Number(q.price??h.price)||0,prev=Number(q.previousClose??h.previousClose)||price,v=h.shares*price,cb=h.shares*h.cost,gl=v-cb,dollar=(price-prev)*h.shares,percent=prev?((price-prev)/prev*100):0;return `<div class="row" id="holding-${i}" ontouchstart="touchStart(event,${i})" ontouchmove="touchMove(event,${i})" ontouchend="touchEnd(event,${i})"><button class="swipe-delete" onclick="removeHolding(${i})">Delete</button><div class="swipe-content"><div><div class="ticker"><span class="holding-dot" style="background:${h.color}"></span>${h.ticker}<span class="badge">${h.account}</span></div><div class="name">${h.shares} shares · cost ${money(cb)}</div></div><div><div class="value">${money(v)}</div><div class="meta ${dollar>=0?"positive":"negative"}">${dollar>=0?"▲":"▼"} ${money(Math.abs(dollar))} today (${dollar>=0?"+":""}${pct(percent)})</div><div class="meta"><button class="secondary" onclick="openEdit(${i})">Edit</button> <button class="secondary" onclick="removeHolding(${i})">Remove</button></div></div></div></div>`}).join(""):`<div class="card empty">Add your first stock holding.</div>`;
+ renderChart(total);renderRSUs();renderAccounts();
 }
-function renderChart(){
- const sums={}; data.holdings.forEach(h=>sums[h.ticker]=(sums[h.ticker]||0)*(1)+h.shares*(quotes[h.ticker]?.price||h.price||0));
- const vals=Object.values(sums), max=Math.max(...vals,1), c=document.getElementById("chart");
- c.innerHTML=Object.entries(sums).map(([t,v])=>`<div class="bar" style="height:${Math.max(8,v/max*140)}px"><span>${t}</span></div>`).join("")||`<div class="empty">Your allocation chart will appear here.</div>`;
+function renderChart(total){
+ const sums={};data.holdings.forEach(h=>sums[h.ticker]=(sums[h.ticker]||0)+h.shares*(quoteFor(h.ticker).price||h.price||0));const entries=Object.entries(sums).filter(([,v])=>v>0);const donut=document.getElementById("donut");const legend=document.getElementById("legend");
+ if(!entries.length){donut.style.background="#e5e7eb";legend.innerHTML='<div class="empty">Your allocation chart will appear here.</div>';return;}
+ let start=0;const stops=[];entries.forEach(([t,v])=>{const end=start+v/total*100;stops.push(`${colorFor(t)} ${start}% ${end}%`);start=end;});donut.style.background=`conic-gradient(${stops.join(",")})`;document.getElementById("donutTotal").textContent=money(total);
+ legend.innerHTML=entries.sort((a,b)=>b[1]-a[1]).map(([t,v])=>`<div class="legend-row"><div class="legend-name"><span class="holding-dot" style="background:${colorFor(t)}"></span><span>${t}</span></div><div class="legend-value">${money(v)} · ${pct(v/total*100)}</div></div>`).join("");
 }
-function renderRSUs(){
- const r=document.getElementById("rsus");
- r.innerHTML=data.rsus.length?data.rsus.map((x,i)=>`<div class="row"><div><div class="ticker">${x.ticker}</div><div class="name">${x.shares} unvested shares · vest ${x.date||"—"}</div></div><div><div class="value">${money(x.shares*(quotes[x.ticker]?.price||0))}</div><div class="meta"><button class="secondary" onclick="data.rsus.splice(${i},1);save()">Remove</button></div></div></div>`).join(""):`<div class="card empty">Add unvested RSUs to see potential future value.</div>`;
-}
-function renderAccounts(){
- const sums={}; data.holdings.forEach(h=>sums[h.account]=(sums[h.account]||0)+h.shares*(quotes[h.ticker]?.price||h.price||0));
- document.getElementById("accounts").innerHTML=Object.entries(sums).map(([a,v])=>`<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #eee"><b>${a}</b><b>${money(v)}</b></div>`).join("")||"No accounts yet.";
-}
-function openAdd(){document.getElementById("modal").classList.add("show")}
-function closeModal(){document.getElementById("modal").classList.remove("show")}
-function saveHolding(){
- const ticker=document.getElementById("ticker").value.trim().toUpperCase(), shares=+document.getElementById("shares").value, cost=+document.getElementById("cost").value, account=document.getElementById("account").value;
- if(!ticker||!shares) return alert("Enter a ticker and number of shares.");
- data.holdings.push({ticker,shares,cost:cost||0,account}); closeModal(); save(); refreshOne(ticker);
-}
-function removeHolding(i){if(confirm("Remove this holding?")){data.holdings.splice(i,1);save()}}
-async function refreshOne(ticker){
- try{const r=await fetch("/api/quote?symbol="+encodeURIComponent(ticker)); const q=await r.json(); if(q.error) throw Error(q.error); quotes[ticker]=q; render(); document.getElementById("updated").textContent="Updated "+new Date().toLocaleString();}
- catch(e){alert("Could not get "+ticker+" price: "+e.message)}
-}
-async function refreshAll(){
- const symbols=[...new Set([...data.holdings.map(h=>h.ticker),...data.rsus.map(r=>r.ticker)])];
- if(!symbols.length)return;
- document.getElementById("updated").textContent="Refreshing prices…";
- await Promise.all(symbols.map(refreshOne));
- document.getElementById("updated").textContent="Updated "+new Date().toLocaleString();
-}
-function openRSU(){document.getElementById("rsuModal").classList.add("show")}
-function closeRSU(){document.getElementById("rsuModal").classList.remove("show")}
-function saveRSU(){
- const ticker=document.getElementById("rsuTicker").value.trim().toUpperCase(), shares=+document.getElementById("rsuShares").value, date=document.getElementById("vestDate").value;
- if(!ticker||!shares)return alert("Enter a ticker and number of shares.");
- data.rsus.push({ticker,shares,date});closeRSU();save();refreshOne(ticker);
-}
+function taxCalc(r){const price=Number(quoteFor(r.ticker).price||0);const rate=Number(r.taxRate??30)/100;const taxShares=Math.max(0,r.shares*rate);const netShares=Math.max(0,r.shares-taxShares);return {price,taxShares,netShares,taxValue:taxShares*price,netValue:netShares*price};}
+function renderRSUs(){const r=document.getElementById("rsus");r.innerHTML=data.rsus.length?data.rsus.map((x,i)=>{const c=taxCalc(x),gross=c.price*x.shares;return `<div class="row"><div><div class="ticker"><span class="holding-dot" style="background:${colorFor(x.ticker)}"></span>${x.ticker}</div><div class="name">${x.shares} shares · vest ${x.date||"—"} · ${x.taxRate??30}% estimated tax · ${x.account||"E*TRADE"}</div><div class="tax-box"><div class="tax-grid"><span>Gross value</span><b>${money(gross)}</b><span>Shares for taxes</span><b>${c.taxShares.toFixed(4)}</b><span>Tax withholding value</span><b>${money(c.taxValue)}</b><span>Shares you receive</span><b>${c.netShares.toFixed(4)}</b><span>Net value</span><b>${money(c.netValue)}</b></div></div></div><div><div class="value">${money(gross)}</div><div class="meta"><button class="secondary" onclick="vestRSU(${i})">Move to Actual</button></div><div class="meta"><button class="secondary" onclick="editRSU(${i})">Edit</button> <button class="secondary" onclick="removeRSU(${i})">Remove</button></div></div></div>`}).join(""):`<div class="card empty">Add unvested RSUs to see potential future value and estimated tax withholding.</div>`;}
+function renderAccounts(){const sums={};data.holdings.forEach(h=>sums[h.account]=(sums[h.account]||0)+h.shares*(quoteFor(h.ticker).price||h.price||0));document.getElementById("accounts").innerHTML=Object.entries(sums).map(([a,v])=>`<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #eee"><b>${a}</b><b>${money(v)}</b></div>`).join("")||"No accounts yet.";}
+function openAdd(){editingIndex=null;document.getElementById("modalTitle").textContent="Add Holding";document.getElementById("ticker").value="";document.getElementById("shares").value="";document.getElementById("cost").value="";document.getElementById("account").value="E*TRADE";document.getElementById("modal").classList.add("show");}
+function openEdit(i){const h=data.holdings[i];editingIndex=i;document.getElementById("modalTitle").textContent="Edit Holding";document.getElementById("ticker").value=h.ticker;document.getElementById("shares").value=h.shares;document.getElementById("cost").value=h.cost;document.getElementById("account").value=h.account;document.getElementById("modal").classList.add("show");}
+function closeModal(){document.getElementById("modal").classList.remove("show");}
+function saveHolding(){const ticker=document.getElementById("ticker").value.trim().toUpperCase(),shares=+document.getElementById("shares").value,cost=+document.getElementById("cost").value,account=document.getElementById("account").value;if(!ticker||!shares)return alert("Enter a ticker and number of shares.");if(editingIndex===null){data.holdings.push({ticker,shares,cost:cost||0,account,color:colorFor(ticker)});}else{const old=data.holdings[editingIndex];data.holdings[editingIndex]={...old,ticker,shares,cost:cost||0,account,color:old.ticker===ticker?old.color:colorFor(ticker)};}closeModal();save();refreshOne(ticker);}
+function removeHolding(i){if(confirm("Remove this holding?")){data.holdings.splice(i,1);save();}}
+function touchStart(e,i){touchStartX=e.touches[0].clientX;touchIndex=i;}
+function touchMove(e,i){if(touchIndex!==i)return;const dx=e.touches[0].clientX-touchStartX;if(dx<-20){const el=document.getElementById("holding-"+i);el.classList.add("swiping");el.style.transform=`translateX(${Math.max(dx,-92)}px)`;}}
+function touchEnd(e,i){if(touchIndex!==i)return;const el=document.getElementById("holding-"+i);const dx=(e.changedTouches[0]?.clientX||touchStartX)-touchStartX;if(dx<-70){if(confirm("Delete this holding?"))removeHolding(i);else{el.classList.remove("swiping");el.style.transform="";}}else{el.classList.remove("swiping");el.style.transform="";}touchIndex=null;}
+async function refreshOne(ticker){try{const r=await fetch("/api/quote?symbol="+encodeURIComponent(ticker));const q=await r.json();if(q.error)throw Error(q.error);quotes[ticker]=q;render();document.getElementById("updated").textContent="Updated "+new Date().toLocaleString();}catch(e){alert("Could not get "+ticker+" price: "+e.message)}}
+async function refreshAll(){const symbols=[...new Set([...data.holdings.map(h=>h.ticker),...data.rsus.map(r=>r.ticker)])];if(!symbols.length)return;document.getElementById("updated").textContent="Refreshing prices…";await Promise.all(symbols.map(refreshOne));document.getElementById("updated").textContent="Updated "+new Date().toLocaleString();}
+function openRSU(){editingRSUIndex=null;document.getElementById("rsuTicker").value="";document.getElementById("rsuShares").value="";document.getElementById("vestDate").value="";document.getElementById("taxRate").value="30";document.getElementById("rsuAccount").value="E*TRADE";document.getElementById("rsuTaxPreview").textContent="Estimated tax shares and value will appear here once a current quote is available.";document.getElementById("rsuModal").classList.add("show");}
+function closeRSU(){document.getElementById("rsuModal").classList.remove("show");}
+function saveRSU(){const ticker=document.getElementById("rsuTicker").value.trim().toUpperCase(),shares=+document.getElementById("rsuShares").value,date=document.getElementById("vestDate").value,taxRate=+document.getElementById("taxRate").value,account=document.getElementById("rsuAccount").value;if(!ticker||!shares)return alert("Enter a ticker and number of shares.");if(taxRate<0||taxRate>100)return alert("Tax rate must be between 0% and 100%.");const item={ticker,shares,date,taxRate,account};if(editingRSUIndex===null)data.rsus.push(item);else data.rsus[editingRSUIndex]=item;editingRSUIndex=null;closeRSU();save();refreshOne(ticker);}
+function removeRSU(i){if(confirm("Remove this RSU vest?")){data.rsus.splice(i,1);save();}}
+function editRSU(i){const x=data.rsus[i];editingRSUIndex=i;document.getElementById("rsuTicker").value=x.ticker;document.getElementById("rsuShares").value=x.shares;document.getElementById("vestDate").value=x.date||"";document.getElementById("taxRate").value=x.taxRate??30;document.getElementById("rsuAccount").value=x.account||"E*TRADE";document.getElementById("rsuModal").classList.add("show");updateRSUPreview();}
+function vestRSU(i){const x=data.rsus[i],c=taxCalc(x),price=c.price;if(!price)return alert("Refresh prices before moving an RSU to actual.");const msg=`Move ${x.shares} ${x.ticker} shares to ${x.account||"E*TRADE"}?\n\nEstimated tax withholding: ${c.taxShares.toFixed(4)} shares (${money(c.taxValue)})\nShares added to actual holdings: ${c.netShares.toFixed(4)} (${money(c.netValue)})`;
+ if(!confirm(msg))return;data.holdings.push({ticker:x.ticker,shares:c.netShares,cost:price,account:x.account||"E*TRADE",color:colorFor(x.ticker)});data.rsus.splice(i,1);save();}
+document.getElementById("rsuShares").addEventListener("input",updateRSUPreview);document.getElementById("taxRate").addEventListener("input",updateRSUPreview);document.getElementById("rsuTicker").addEventListener("input",updateRSUPreview);
+function updateRSUPreview(){const ticker=document.getElementById("rsuTicker").value.trim().toUpperCase(),shares=+document.getElementById("rsuShares").value||0,rate=+document.getElementById("taxRate").value||0,price=quoteFor(ticker).price||0;const ts=shares*rate/100;document.getElementById("rsuTaxPreview").innerHTML=price?`At <b>${money(price)}</b>: estimated tax withholding is <b>${ts.toFixed(4)} shares</b> worth <b>${money(ts*price)}</b>. You would receive <b>${Math.max(0,shares-ts).toFixed(4)} shares</b> worth <b>${money(Math.max(0,shares-ts)*price)}</b>.`:`No current quote for ${ticker||"this ticker"} yet. Save the RSU, then refresh prices.`;}
 render();
 </script>
 </body>
