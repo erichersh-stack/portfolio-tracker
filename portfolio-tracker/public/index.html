@@ -12,12 +12,12 @@ header{display:flex;justify-content:space-between;align-items:center;gap:12px;ma
 button{border:0;border-radius:14px;padding:11px 15px;font-weight:700;cursor:pointer;background:#111827;color:white}button.secondary{background:white;color:#111827;border:1px solid #d1d5db}button.danger{color:#c0392b;border-color:#f0b7b1;background:#fff}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{background:white;border-radius:20px;padding:18px;box-shadow:0 2px 10px #0000000a}.label{font-size:13px;color:#6b7280}.big{font-size:29px;font-weight:800;margin-top:5px}.positive{color:#14804a}.negative{color:#c0392b}
 .section{margin-top:20px}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.sectionhead h2{font-size:20px;margin:0}.controls{display:flex;gap:8px;flex-wrap:wrap}.empty{padding:25px;text-align:center;color:#6b7280}
-.holdings{display:grid;gap:10px}.row{background:white;border-radius:18px;padding:15px;display:grid;grid-template-columns:1fr;gap:0;align-items:center;position:relative;overflow:hidden;transition:transform .18s ease}.swipe-content{display:block}.swipe-delete{display:none;position:absolute;right:0;top:0;bottom:0;width:92px;background:#c0392b;color:#fff;border-radius:0;align-items:center;justify-content:center;z-index:2}.row.swiping .swipe-delete{display:flex}.holding-summary{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.holding-body{display:none;border-top:1px solid #eee;margin-top:12px;padding-top:12px}.holding-details{display:grid;grid-template-columns:1fr 1fr;gap:10px}.holding-details>div{background:#f9fafb;border-radius:12px;padding:9px}.holding-details .label{display:block;font-size:11px;color:#6b7280;margin-bottom:3px}.holding-actions{display:flex;justify-content:flex-end;margin-top:10px}.ticker{font-size:18px;font-weight:800}.name{font-size:13px;color:#6b7280}.value{font-size:18px;font-weight:800;text-align:right}.meta{text-align:right;color:#6b7280;font-size:12px;margin-top:3px}.badge{display:inline-block;background:#eef2ff;border-radius:10px;padding:3px 7px;font-size:11px;margin-left:5px}.holding-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:1px}.chart-card{display:grid;grid-template-columns:230px 1fr;gap:20px;align-items:center}.donut{width:210px;height:210px;border-radius:50%;position:relative;margin:auto;background:#e5e7eb}.donut:after{content:"";position:absolute;inset:48px;background:white;border-radius:50%}.donut-total{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1;text-align:center;font-weight:800;font-size:17px;flex-direction:column}.legend{display:grid;gap:9px}.legend-row{display:flex;align-items:center;justify-content:space-between;gap:10px}.legend-name{display:flex;align-items:center;min-width:0}.legend-name span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.legend-value{font-weight:700}.swipe-hint{font-size:11px;color:#9ca3af;margin-top:5px}
+.holdings{display:grid;gap:10px}.row{background:white;border-radius:18px;padding:15px;display:grid;grid-template-columns:1fr;gap:0;align-items:center;position:relative;overflow:hidden;transition:transform .18s ease}.swipe-content{display:block;position:relative;z-index:1;transition:transform .18s ease;background:#fff}.swipe-action{position:absolute;top:0;bottom:0;width:92px;color:#fff;border:0;border-radius:0;display:flex;align-items:center;justify-content:center;z-index:0;font-weight:600}.swipe-edit{left:0;background:#2563eb}.swipe-delete{right:0;background:#c0392b}.row.swiping-left .swipe-content{transform:translateX(-92px)}.row.swiping-right .swipe-content{transform:translateX(92px)}.holding-summary{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.holding-body{display:none;border-top:1px solid #eee;margin-top:12px;padding-top:12px}.holding-details{display:grid;grid-template-columns:1fr 1fr;gap:10px}.holding-details>div{background:#f9fafb;border-radius:12px;padding:9px}.holding-details .label{display:block;font-size:11px;color:#6b7280;margin-bottom:3px}.holding-actions{display:flex;justify-content:flex-end;margin-top:10px}.ticker{font-size:18px;font-weight:800}.name{font-size:13px;color:#6b7280}.value{font-size:18px;font-weight:800;text-align:right}.meta{text-align:right;color:#6b7280;font-size:12px;margin-top:3px}.badge{display:inline-block;background:#eef2ff;border-radius:10px;padding:3px 7px;font-size:11px;margin-left:5px}.holding-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:1px}.chart-card{display:grid;grid-template-columns:230px 1fr;gap:20px;align-items:center}.donut{width:210px;height:210px;border-radius:50%;position:relative;margin:auto;background:#e5e7eb}.donut:after{content:"";position:absolute;inset:48px;background:white;border-radius:50%}.donut-total{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1;text-align:center;font-weight:800;font-size:17px;flex-direction:column}.legend{display:grid;gap:9px}.legend-row{display:flex;cursor:pointer;align-items:center;justify-content:space-between;gap:10px}.legend-name{display:flex;align-items:center;min-width:0}.legend-name span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.legend-value{font-weight:700}.swipe-hint{font-size:11px;color:#9ca3af;margin-top:5px}
 .form{display:grid;grid-template-columns:1fr 1fr;gap:10px}input,select{width:100%;padding:13px;border:1px solid #d1d5db;border-radius:12px;font-size:16px;background:white}.full{grid-column:1/-1}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:5}.modal.show{display:flex}.sheet{background:#fff;border-radius:24px;padding:20px;width:min(560px,100%);max-height:90vh;overflow:auto}.note{font-size:12px;color:#6b7280;line-height:1.45}.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:15px}.tax-box{background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;padding:12px;margin-top:10px}.tax-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px}.tax-grid b{text-align:right}.grant{background:white;border-radius:18px;padding:0;overflow:hidden;box-shadow:0 2px 10px #0000000a}.grant-head{padding:15px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;cursor:pointer}.grant-title{font-size:18px;font-weight:800}.grant-total{font-size:18px;font-weight:800;text-align:right}.grant-sub{font-size:12px;color:#6b7280;margin-top:3px}.grant-body{padding:0 12px 12px;border-top:1px solid #eee}.vest{padding:13px 3px;border-bottom:1px solid #eee;display:grid;grid-template-columns:1fr auto;gap:10px}.vest:last-child{border-bottom:0}.rsu-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:10px}.rsu-summary .sum{font-size:22px;font-weight:800}.chevron{font-size:18px;color:#6b7280}.grant-actions{display:flex;gap:6px;justify-content:flex-end;margin-top:8px}@media(max-width:700px){.rsu-summary{grid-template-columns:1fr 1fr}.vest{grid-template-columns:1fr}.grant-total{text-align:left}.holding-details{grid-template-columns:1fr 1fr}}
 footer{margin-top:25px;color:#9ca3af;font-size:12px;text-align:center}
-@media(max-width:700px){.grid{grid-template-columns:1fr}.form{grid-template-columns:1fr}.full{grid-column:auto}header{align-items:flex-start}.row{grid-template-columns:1fr auto}.chart-card{grid-template-columns:1fr}.donut{width:190px;height:190px}.donut:after{inset:43px}}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.form{grid-template-columns:1fr}.full{grid-column:auto}header{align-items:flex-start}.row{grid-template-columns:1fr auto}.chart-card{grid-template-columns:1fr}.donut{width:190px;height:190px;cursor:pointer}.donut:after{inset:43px}}
 
-.holding-group{overflow:hidden}.group-summary{cursor:pointer;padding:2px}.holdings-body{display:none;border-top:1px solid #eee;margin-top:14px;padding-top:8px}.holdings-table-head{display:grid;grid-template-columns:1.6fr .8fr .9fr auto;gap:10px;padding:6px 8px;color:#6b7280;font-size:11px;text-transform:uppercase}.holding-row-wrap{position:relative;overflow:hidden;border-top:1px solid #eee}.holding-row{display:grid;grid-template-columns:1.6fr .8fr .9fr auto;gap:10px;align-items:center;padding:12px 8px;background:#fff}.holding-ticker{display:flex;align-items:center;gap:8px}.holding-row .value{font-size:15px}.holding-row .name{font-size:11px}.holding-row .meta{font-size:11px}.holding-row-price{text-align:right}.holding-row-value{text-align:right}.edit-row{padding:7px 10px;font-size:12px}.swipe-content{position:relative;z-index:1;transition:transform .18s;background:#fff}.row.swiping .swipe-content{transform:translateX(-92px)}
+.holding-group{overflow:hidden}.group-summary{cursor:pointer;padding:2px}.holdings-body{display:none;border-top:1px solid #eee;margin-top:14px;padding-top:8px}.holdings-table-head{display:grid;grid-template-columns:1.6fr .8fr .9fr auto;gap:10px;padding:6px 8px;color:#6b7280;font-size:11px;text-transform:uppercase}.holding-row-wrap{position:relative;overflow:hidden;border-top:1px solid #eee}.holding-row{display:grid;grid-template-columns:1.6fr .8fr .9fr auto;gap:10px;align-items:center;padding:12px 8px;background:#fff}.holding-ticker{display:flex;align-items:center;gap:8px}.holding-row .value{font-size:15px}.holding-row .name{font-size:11px}.holding-row .meta{font-size:11px}.holding-row-price{text-align:right}.holding-row-value{text-align:right}.edit-row{padding:7px 10px;font-size:12px}.swipe-content{position:relative;z-index:1;transition:transform .18s;background:#fff}
 @media(max-width:700px){.holdings-table-head{grid-template-columns:1.4fr .75fr .85fr auto}.holding-row{grid-template-columns:1.4fr .75fr .85fr auto;gap:6px}.edit-row{padding:6px 8px}.holding-row .value{font-size:14px}}
 @media(max-width:520px){.holdings-table-head{display:none}.holding-row{grid-template-columns:1fr auto;gap:8px}.holding-row-price{text-align:right}.holding-row-value{text-align:right}.edit-row{grid-column:2;grid-row:2}.holding-ticker{grid-row:1 / span 2}.holding-row .meta{font-size:10px}}
 </style>
@@ -31,8 +31,8 @@ footer{margin-top:25px;color:#9ca3af;font-size:12px;text-align:center}
   <div class="card"><div class="label">Potential + RSUs</div><div class="big" id="potential">$0.00</div></div>
 </div>
 <div class="section"><div class="sectionhead"><h2>Holdings</h2><div class="controls"><button class="secondary" onclick="refreshAll()">↻ Refresh Prices</button></div></div><div id="holdings" class="holdings"></div></div>
-<div class="section"><div class="sectionhead"><h2>Allocation</h2></div><div class="card chart-card"><div id="donut" class="donut"><div class="donut-total"><span id="donutTotal">$0</span><span class="label">Portfolio</span></div></div><div id="legend" class="legend"></div></div></div>
 <div class="section"><div class="sectionhead"><div><h2>RSUs / Future Value</h2><div class="note">Organized by grant. Open a grant to see all of its vesting events, values, and estimated tax withholding.</div></div><div class="controls"><button class="secondary" onclick="openGrant()">＋ Add Grant</button><button onclick="openRSU()">＋ Add Vest</button></div></div><div id="rsuSummary" class="card rsu-summary"></div><div id="rsus" class="holdings"></div></div>
+<div class="section"><div class="sectionhead"><h2>Allocation</h2></div><div class="card chart-card"><div id="donut" class="donut"><div class="donut-total"><span id="donutTotal">$0</span><span class="label">Portfolio</span></div></div><div id="legend" class="legend"></div></div></div>
 <div class="section"><div class="sectionhead"><h2>Accounts</h2></div><div id="accounts" class="card"></div></div>
 <footer id="updated">Prices not yet refreshed.</footer>
 </div>
@@ -78,15 +78,15 @@ function render(){
  const count=holdings.length;
  const holdingRows=holdings.map((h,i)=>{
    const q=quoteFor(h.ticker),price=Number(q.price??h.price)||0,prev=Number(q.previousClose??h.previousClose)||price;
-   const v=h.shares*price,cb=h.shares*h.cost,gl=v-cb,dollar=(price-prev)*h.shares,percent=prev?((price-prev)/prev*100):0;
+   const v=h.shares*price,dollar=(price-prev)*h.shares,percent=prev?((price-prev)/prev*100):0;
    return `<div class="holding-row-wrap row" id="holding-${i}" ontouchstart="touchStart(event,${i})" ontouchmove="touchMove(event,${i})" ontouchend="touchEnd(event,${i})">
-     <button class="swipe-delete" onclick="event.stopPropagation();removeHolding(${i})">Delete</button>
-     <div class="swipe-content">
+     <button class="swipe-action swipe-edit" onclick="event.stopPropagation();openEdit(${i})">Edit</button>
+     <button class="swipe-action swipe-delete" onclick="event.stopPropagation();removeHolding(${i})">Delete</button>
+     <div class="swipe-content" onclick="handleHoldingTap(event,${i})">
        <div class="holding-row">
-         <div class="holding-ticker"><span class="holding-dot" style="background:${h.color}"></span><div><div class="ticker">${h.ticker}</div><div class="name">${h.account} · ${h.shares.toLocaleString("en-US",{maximumFractionDigits:4})} shares</div></div></div>
-         <div class="holding-row-price"><div class="value">${money(price)}</div><div class="name">Current share price</div></div>
+         <div class="holding-ticker"><span class="holding-dot" style="background:${h.color}"></span><div><div class="ticker">${h.ticker}</div><div class="name">${h.account}</div></div></div>
+         <div class="holding-row-price"><div class="value">${money(price)}</div><div class="name">${h.shares.toLocaleString("en-US",{maximumFractionDigits:4})} shares</div></div>
          <div class="holding-row-value"><div class="value">${money(v)}</div><div class="meta ${dollar>=0?"positive":"negative"}">${dollar>=0?"+":"-"}${money(Math.abs(dollar))} today (${dollar>=0?"+":""}${pct(percent)})</div></div>
-         <button class="secondary edit-row" onclick="event.stopPropagation();openEdit(${i})">Edit</button>
        </div>
      </div>
    </div>`;
@@ -106,10 +106,43 @@ function render(){
  renderChart(total);renderRSUs();renderAccounts();
 }
 function renderChart(total){
- const sums={};data.holdings.forEach(h=>sums[h.ticker]=(sums[h.ticker]||0)+h.shares*(quoteFor(h.ticker).price||h.price||0));const entries=Object.entries(sums).filter(([,v])=>v>0);const donut=document.getElementById("donut");const legend=document.getElementById("legend");
- if(!entries.length){donut.style.background="#e5e7eb";legend.innerHTML='<div class="empty">Your allocation chart will appear here.</div>';return;}
- let start=0;const stops=[];entries.forEach(([t,v])=>{const end=start+v/total*100;stops.push(`${colorFor(t)} ${start}% ${end}%`);start=end;});donut.style.background=`conic-gradient(${stops.join(",")})`;document.getElementById("donutTotal").textContent=money(total);
- legend.innerHTML=entries.sort((a,b)=>b[1]-a[1]).map(([t,v])=>`<div class="legend-row"><div class="legend-name"><span class="holding-dot" style="background:${colorFor(t)}"></span><span>${t}</span></div><div class="legend-value">${money(v)} · ${pct(v/total*100)}</div></div>`).join("");
+ const sums={};data.holdings.forEach(h=>sums[h.ticker]=(sums[h.ticker]||0)+h.shares*(quoteFor(h.ticker).price||h.price||0));
+ const entries=Object.entries(sums).filter(([,v])=>v>0);
+ const donut=document.getElementById("donut"),legend=document.getElementById("legend");
+ if(!entries.length){donut.style.background="#e5e7eb";donut.onclick=null;legend.innerHTML='<div class="empty">Your allocation chart will appear here.</div>';return;}
+ let start=0;const stops=[];
+ entries.forEach(([t,v])=>{const end=start+v/total*100;stops.push(`${colorFor(t)} ${start}% ${end}%`);start=end;});
+ donut.style.background=`conic-gradient(${stops.join(",")})`;
+ document.getElementById("donutTotal").textContent=money(total);
+ donut.title="Click a section to open that holding";
+ donut.onclick=(e)=>{
+   const rect=donut.getBoundingClientRect(),cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
+   let angle=Math.atan2(e.clientY-cy,e.clientX-cx)*180/Math.PI+90;if(angle<0)angle+=360;
+   const target=angle/360*100;
+   let cumulative=0;
+   for(const [t,v] of entries){
+     const next=cumulative+v/total*100;
+     if(target>=cumulative && target<next){
+       const idx=data.holdings.findIndex(h=>h.ticker===t);
+       if(idx>=0){
+         const body=document.getElementById("holdings-body"),chev=document.getElementById("holdings-chev");
+         if(body&&body.style.display!=="block"){body.style.display="block";if(chev)chev.textContent="▾";}
+         const row=document.getElementById("holding-"+idx);
+         if(row)row.scrollIntoView({behavior:"smooth",block:"center"});
+       }
+       break;
+     }
+     cumulative=next;
+   }
+ };
+ legend.innerHTML=entries.sort((a,b)=>b[1]-a[1]).map(([t,v])=>`<div class="legend-row" onclick="jumpToHolding('${t.replace(/'/g,"\\'")}')"><div class="legend-name"><span class="holding-dot" style="background:${colorFor(t)}"></span><span>${t}</span></div><div class="legend-value">${money(v)} · ${pct(v/total*100)}</div></div>`).join("");
+}
+function jumpToHolding(ticker){
+ const body=document.getElementById("holdings-body"),chev=document.getElementById("holdings-chev");
+ if(body&&body.style.display!=="block"){body.style.display="block";if(chev)chev.textContent="▾";}
+ const idx=data.holdings.findIndex(h=>h.ticker===ticker);
+ const row=document.getElementById("holding-"+idx);
+ if(row)row.scrollIntoView({behavior:"smooth",block:"center"});
 }
 function taxCalc(r){const price=Number(quoteFor(r.ticker).price||0);const rate=Number(r.taxRate??30)/100;const taxShares=Math.max(0,r.shares*rate);const netShares=Math.max(0,r.shares-taxShares);return {price,taxShares,netShares,taxValue:taxShares*price,netValue:netShares*price};}
 function renderRSUs(){
@@ -143,9 +176,36 @@ function closeModal(){document.getElementById("modal").classList.remove("show");
 function saveHolding(){const ticker=document.getElementById("ticker").value.trim().toUpperCase(),shares=+document.getElementById("shares").value,cost=+document.getElementById("cost").value,account=document.getElementById("account").value;if(!ticker||!shares)return alert("Enter a ticker and number of shares.");if(editingIndex===null){data.holdings.push({ticker,shares,cost:cost||0,account,color:colorFor(ticker)});}else{const old=data.holdings[editingIndex];data.holdings[editingIndex]={...old,ticker,shares,cost:cost||0,account,color:old.ticker===ticker?old.color:colorFor(ticker)};}closeModal();save();refreshOne(ticker);}
 function removeHolding(i){if(confirm("Remove this holding?")){data.holdings.splice(i,1);save();}}
 function toggleHoldingsGroup(){const el=document.getElementById("holdings-body"),ch=document.getElementById("holdings-chev");if(!el)return;if(el.style.display==="block"){el.style.display="none";ch.textContent="▸"}else{el.style.display="block";ch.textContent="▾"}}
-function touchStart(e,i){touchStartX=e.touches[0].clientX;touchIndex=i;}
-function touchMove(e,i){if(touchIndex!==i)return;const dx=e.touches[0].clientX-touchStartX;if(dx<-20){const el=document.getElementById("holding-"+i);el.classList.add("swiping");el.querySelector(".swipe-content").style.transform=`translateX(${Math.max(dx,-92)}px)`;}}
-function touchEnd(e,i){if(touchIndex!==i)return;const el=document.getElementById("holding-"+i);const content=el.querySelector(".swipe-content");const dx=(e.changedTouches[0]?.clientX||touchStartX)-touchStartX;if(dx<-70){if(confirm("Delete this holding?"))removeHolding(i);else{el.classList.remove("swiping");content.style.transform="";}}else{el.classList.remove("swiping");content.style.transform="";}touchIndex=null;}
+let touchMoved=false;
+function touchStart(e,i){touchStartX=e.touches[0].clientX;touchIndex=i;touchMoved=false;}
+function touchMove(e,i){
+ if(touchIndex!==i)return;
+ const dx=e.touches[0].clientX-touchStartX;
+ if(Math.abs(dx)>12)touchMoved=true;
+ const el=document.getElementById("holding-"+i);
+ el.classList.remove("swiping-left","swiping-right");
+ if(dx<-12)el.classList.add("swiping-left");
+ if(dx>12)el.classList.add("swiping-right");
+}
+function touchEnd(e,i){
+ if(touchIndex!==i)return;
+ const el=document.getElementById("holding-"+i);
+ const content=el.querySelector(".swipe-content");
+ const dx=(e.changedTouches[0]?.clientX||touchStartX)-touchStartX;
+ if(dx<-70){if(confirm("Delete this holding?"))removeHolding(i);}
+ else if(dx>70){openEdit(i);}
+ el.classList.remove("swiping-left","swiping-right");
+ content.style.transform="";
+ touchIndex=null;
+ setTimeout(()=>{touchMoved=false;},50);
+}
+function handleHoldingTap(e,i){
+ if(touchMoved)return;
+ const h=data.holdings[i];
+ if(!h)return;
+ const url="https://news.google.com/search?q="+encodeURIComponent(h.ticker+" stock financial news");
+ window.open(url,"_blank");
+}
 async function refreshOne(ticker){try{const r=await fetch("/api/quote?symbol="+encodeURIComponent(ticker));const q=await r.json();if(q.error)throw Error(q.error);quotes[ticker]=q;render();document.getElementById("updated").textContent="Updated "+new Date().toLocaleString();}catch(e){alert("Could not get "+ticker+" price: "+e.message)}}
 async function refreshAll(){const symbols=[...new Set([...data.holdings.map(h=>h.ticker),...data.rsus.map(r=>r.ticker)])];if(!symbols.length)return;document.getElementById("updated").textContent="Refreshing prices…";await Promise.all(symbols.map(refreshOne));document.getElementById("updated").textContent="Updated "+new Date().toLocaleString();}
 function populateGrantSelect(selected){
