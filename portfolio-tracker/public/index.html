@@ -16,6 +16,10 @@ button{border:0;border-radius:14px;padding:11px 15px;font-weight:700;cursor:poin
 .form{display:grid;grid-template-columns:1fr 1fr;gap:10px}input,select{width:100%;padding:13px;border:1px solid #d1d5db;border-radius:12px;font-size:16px;background:white}.full{grid-column:1/-1}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:5}.modal.show{display:flex}.sheet{background:#fff;border-radius:24px;padding:20px;width:min(560px,100%);max-height:90vh;overflow:auto}.note{font-size:12px;color:#6b7280;line-height:1.45}.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:15px}.tax-box{background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;padding:12px;margin-top:10px}.tax-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px}.tax-grid b{text-align:right}.grant{background:white;border-radius:18px;padding:0;overflow:hidden;box-shadow:0 2px 10px #0000000a}.grant-head{padding:15px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;cursor:pointer}.grant-title{font-size:18px;font-weight:800}.grant-total{font-size:18px;font-weight:800;text-align:right}.grant-sub{font-size:12px;color:#6b7280;margin-top:3px}.grant-body{padding:0 12px 12px;border-top:1px solid #eee}.vest{padding:13px 3px;border-bottom:1px solid #eee;display:grid;grid-template-columns:1fr auto;gap:10px}.vest:last-child{border-bottom:0}.rsu-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:10px}.rsu-summary .sum{font-size:22px;font-weight:800}.chevron{font-size:18px;color:#6b7280}.grant-actions{display:flex;gap:6px;justify-content:flex-end;margin-top:8px}@media(max-width:700px){.rsu-summary{grid-template-columns:1fr 1fr}.vest{grid-template-columns:1fr}.grant-total{text-align:left}.holding-details{grid-template-columns:1fr 1fr}}
 footer{margin-top:25px;color:#9ca3af;font-size:12px;text-align:center}
 @media(max-width:700px){.grid{grid-template-columns:1fr}.form{grid-template-columns:1fr}.full{grid-column:auto}header{align-items:flex-start}.row{grid-template-columns:1fr auto}.chart-card{grid-template-columns:1fr}.donut{width:190px;height:190px}.donut:after{inset:43px}}
+
+.holding-group{overflow:hidden}.group-summary{cursor:pointer;padding:2px}.holdings-body{display:none;border-top:1px solid #eee;margin-top:14px;padding-top:8px}.holdings-table-head{display:grid;grid-template-columns:1.6fr .8fr .9fr auto;gap:10px;padding:6px 8px;color:#6b7280;font-size:11px;text-transform:uppercase}.holding-row-wrap{position:relative;overflow:hidden;border-top:1px solid #eee}.holding-row{display:grid;grid-template-columns:1.6fr .8fr .9fr auto;gap:10px;align-items:center;padding:12px 8px;background:#fff}.holding-ticker{display:flex;align-items:center;gap:8px}.holding-row .value{font-size:15px}.holding-row .name{font-size:11px}.holding-row .meta{font-size:11px}.holding-row-price{text-align:right}.holding-row-value{text-align:right}.edit-row{padding:7px 10px;font-size:12px}.swipe-content{position:relative;z-index:1;transition:transform .18s;background:#fff}.row.swiping .swipe-content{transform:translateX(-92px)}
+@media(max-width:700px){.holdings-table-head{grid-template-columns:1.4fr .75fr .85fr auto}.holding-row{grid-template-columns:1.4fr .75fr .85fr auto;gap:6px}.edit-row{padding:6px 8px}.holding-row .value{font-size:14px}}
+@media(max-width:520px){.holdings-table-head{display:none}.holding-row{grid-template-columns:1fr auto;gap:8px}.holding-row-price{text-align:right}.holding-row-value{text-align:right}.edit-row{grid-column:2;grid-row:2}.holding-ticker{grid-row:1 / span 2}.holding-row .meta{font-size:10px}}
 </style>
 </head>
 <body>
@@ -71,7 +75,34 @@ function render(){
  const rsuTotal=data.rsus.reduce((s,r)=>s+(r.shares*(quoteFor(r.ticker).price||r.price||0)),0);
  document.getElementById("total").textContent=money(total);const dc=document.getElementById("dayChange");dc.textContent=money(day);dc.className="big "+(day>=0?"positive":"negative");document.getElementById("potential").textContent=money(total+rsuTotal);
  const box=document.getElementById("holdings");
- box.innerHTML=holdings.length?holdings.map((h,i)=>{const q=quoteFor(h.ticker),price=Number(q.price??h.price)||0,prev=Number(q.previousClose??h.previousClose)||price,v=h.shares*price,cb=h.shares*h.cost,gl=v-cb,dollar=(price-prev)*h.shares,percent=prev?((price-prev)/prev*100):0;return `<div class="holding-group row" id="holding-${i}" onclick="toggleHolding(${i})" ontouchstart="touchStart(event,${i})" ontouchmove="touchMove(event,${i})" ontouchend="touchEnd(event,${i})"><button class="swipe-delete" onclick="event.stopPropagation();removeHolding(${i})">Delete</button><div class="swipe-content"><div class="holding-summary"><div><div class="ticker"><span class="chevron" id="holding-chev-${i}">▸</span><span class="holding-dot" style="background:${h.color}"></span>${h.ticker}<span class="badge">${h.account}</span></div><div class="name">${h.shares.toLocaleString("en-US",{maximumFractionDigits:4})} shares · ${money(price)} / share</div></div><div><div class="value">${money(v)}</div><div class="meta ${dollar>=0?"positive":"negative"}">${dollar>=0?"▲":"▼"} ${money(Math.abs(dollar))} today (${dollar>=0?"+":""}${pct(percent)})</div></div></div><div id="holding-body-${i}" class="holding-body"><div class="holding-details"><div><span class="label">Current share price</span><b>${money(price)}</b></div><div><span class="label">Shares</span><b>${h.shares.toLocaleString("en-US",{maximumFractionDigits:4})}</b></div><div><span class="label">Market value</span><b>${money(v)}</b></div><div><span class="label">Total cost basis</span><b>${money(cb)}</b></div><div><span class="label">Total gain / loss</span><b class="${gl>=0?"positive":"negative"}">${gl>=0?"+":"-"}${money(Math.abs(gl))}</b></div><div><span class="label">Today's change</span><b class="${dollar>=0?"positive":"negative"}">${dollar>=0?"+":"-"}${money(Math.abs(dollar))} (${dollar>=0?"+":""}${pct(percent)})</b></div></div><div class="holding-actions"><button class="secondary" onclick="event.stopPropagation();openEdit(${i})">Edit</button></div></div></div></div>`}).join(""):`<div class="card empty">Add your first stock holding.</div>`;
+ const count=holdings.length;
+ const holdingRows=holdings.map((h,i)=>{
+   const q=quoteFor(h.ticker),price=Number(q.price??h.price)||0,prev=Number(q.previousClose??h.previousClose)||price;
+   const v=h.shares*price,cb=h.shares*h.cost,gl=v-cb,dollar=(price-prev)*h.shares,percent=prev?((price-prev)/prev*100):0;
+   return `<div class="holding-row-wrap row" id="holding-${i}" ontouchstart="touchStart(event,${i})" ontouchmove="touchMove(event,${i})" ontouchend="touchEnd(event,${i})">
+     <button class="swipe-delete" onclick="event.stopPropagation();removeHolding(${i})">Delete</button>
+     <div class="swipe-content">
+       <div class="holding-row">
+         <div class="holding-ticker"><span class="holding-dot" style="background:${h.color}"></span><div><div class="ticker">${h.ticker}</div><div class="name">${h.account} · ${h.shares.toLocaleString("en-US",{maximumFractionDigits:4})} shares</div></div></div>
+         <div class="holding-row-price"><div class="value">${money(price)}</div><div class="name">Current share price</div></div>
+         <div class="holding-row-value"><div class="value">${money(v)}</div><div class="meta ${dollar>=0?"positive":"negative"}">${dollar>=0?"+":"-"}${money(Math.abs(dollar))} today (${dollar>=0?"+":""}${pct(percent)})</div></div>
+         <button class="secondary edit-row" onclick="event.stopPropagation();openEdit(${i})">Edit</button>
+       </div>
+     </div>
+   </div>`;
+ }).join("");
+ box.innerHTML=holdings.length
+ ? `<div class="holding-group card">
+      <div class="holding-summary group-summary" onclick="toggleHoldingsGroup()">
+        <div><div class="ticker"><span class="chevron" id="holdings-chev">▸</span> Holdings Summary</div><div class="name">${count} holding${count===1?"":"s"} · ${money(total)} current value</div></div>
+        <div><div class="value">${money(day)}</div><div class="meta ${day>=0?"positive":"negative"}">${day>=0?"+":""}${total?((day/(total-day))*100).toFixed(2):"0.00"}% today</div></div>
+      </div>
+      <div id="holdings-body" class="holdings-body">
+        <div class="holdings-table-head"><span>Holding</span><span>Price</span><span>Value</span><span></span></div>
+        ${holdingRows}
+      </div>
+    </div>`
+ : `<div class="card empty">Add your first stock holding.</div>`;
  renderChart(total);renderRSUs();renderAccounts();
 }
 function renderChart(total){
@@ -111,10 +142,10 @@ function openEdit(i){const h=data.holdings[i];editingIndex=i;document.getElement
 function closeModal(){document.getElementById("modal").classList.remove("show");}
 function saveHolding(){const ticker=document.getElementById("ticker").value.trim().toUpperCase(),shares=+document.getElementById("shares").value,cost=+document.getElementById("cost").value,account=document.getElementById("account").value;if(!ticker||!shares)return alert("Enter a ticker and number of shares.");if(editingIndex===null){data.holdings.push({ticker,shares,cost:cost||0,account,color:colorFor(ticker)});}else{const old=data.holdings[editingIndex];data.holdings[editingIndex]={...old,ticker,shares,cost:cost||0,account,color:old.ticker===ticker?old.color:colorFor(ticker)};}closeModal();save();refreshOne(ticker);}
 function removeHolding(i){if(confirm("Remove this holding?")){data.holdings.splice(i,1);save();}}
-function toggleHolding(i){const el=document.getElementById("holding-body-"+i),ch=document.getElementById("holding-chev-"+i);if(!el)return;if(el.style.display==="block"){el.style.display="none";ch.textContent="▸"}else{el.style.display="block";ch.textContent="▾"}}
+function toggleHoldingsGroup(){const el=document.getElementById("holdings-body"),ch=document.getElementById("holdings-chev");if(!el)return;if(el.style.display==="block"){el.style.display="none";ch.textContent="▸"}else{el.style.display="block";ch.textContent="▾"}}
 function touchStart(e,i){touchStartX=e.touches[0].clientX;touchIndex=i;}
-function touchMove(e,i){if(touchIndex!==i)return;const dx=e.touches[0].clientX-touchStartX;if(dx<-20){const el=document.getElementById("holding-"+i);el.classList.add("swiping");el.style.transform=`translateX(${Math.max(dx,-92)}px)`;}}
-function touchEnd(e,i){if(touchIndex!==i)return;const el=document.getElementById("holding-"+i);const dx=(e.changedTouches[0]?.clientX||touchStartX)-touchStartX;if(dx<-70){if(confirm("Delete this holding?"))removeHolding(i);else{el.classList.remove("swiping");el.style.transform="";}}else{el.classList.remove("swiping");el.style.transform="";}touchIndex=null;}
+function touchMove(e,i){if(touchIndex!==i)return;const dx=e.touches[0].clientX-touchStartX;if(dx<-20){const el=document.getElementById("holding-"+i);el.classList.add("swiping");el.querySelector(".swipe-content").style.transform=`translateX(${Math.max(dx,-92)}px)`;}}
+function touchEnd(e,i){if(touchIndex!==i)return;const el=document.getElementById("holding-"+i);const content=el.querySelector(".swipe-content");const dx=(e.changedTouches[0]?.clientX||touchStartX)-touchStartX;if(dx<-70){if(confirm("Delete this holding?"))removeHolding(i);else{el.classList.remove("swiping");content.style.transform="";}}else{el.classList.remove("swiping");content.style.transform="";}touchIndex=null;}
 async function refreshOne(ticker){try{const r=await fetch("/api/quote?symbol="+encodeURIComponent(ticker));const q=await r.json();if(q.error)throw Error(q.error);quotes[ticker]=q;render();document.getElementById("updated").textContent="Updated "+new Date().toLocaleString();}catch(e){alert("Could not get "+ticker+" price: "+e.message)}}
 async function refreshAll(){const symbols=[...new Set([...data.holdings.map(h=>h.ticker),...data.rsus.map(r=>r.ticker)])];if(!symbols.length)return;document.getElementById("updated").textContent="Refreshing prices…";await Promise.all(symbols.map(refreshOne));document.getElementById("updated").textContent="Updated "+new Date().toLocaleString();}
 function populateGrantSelect(selected){
